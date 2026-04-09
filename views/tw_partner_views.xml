@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Partner Form View Inherit -->
+        <record id="view_partner_form_inherit_tw" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.tw</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Taiwan Invoice Settings">
+                        <group>
+                            <group>
+                                <field name="tw_vat" placeholder="Enter 8-digit VAT number"/>
+                                <field name="tw_invoice_type" readonly="True"/>
+                            </group>
+                            <group>
+                                <label for="tw_prefer_carrier_type" string="Default Carrier Settings"/>
+                                <div>
+                                    <field name="tw_prefer_carrier_type"/>
+                                    <div attrs="{'invisible': [('tw_prefer_carrier_type', '=', 'none')]}">
+                                        <field name="tw_prefer_carrier_num"
+                                               placeholder="Enter carrier number"
+                                               attrs="{'required': [('tw_prefer_carrier_type', 'in', ['mobile_barcode', 'citizen_cert', 'donation_code'])]}"/>
+                                        <field name="tw_prefer_donation_unit"
+                                               attrs="{'invisible': [('tw_prefer_carrier_type', '!=', 'donation_code')],
+                                                       'required': [('tw_prefer_carrier_type', '=', 'donation_code')]}"/>
+                                    </div>
+                                </div>
+                                <field name="tw_carrier_display" readonly="True"/>
+                            </group>
+                        </group>
+
+                        <!-- Carrier Usage History -->
+                        <group string="Carrier Usage Records" attrs="{'invisible': [('carrier_history_ids', '=', False)]}">
+                            <field name="carrier_history_ids" nolabel="1">
+                                <tree>
+                                    <field name="invoice_date"/>
+                                    <field name="carrier_type"/>
+                                    <field name="carrier_num"/>
+                                    <field name="invoice_amount"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Taiwan Accounting Menu -->
+        <menuitem id="menu_tw_accounting_root"
+                  name="Taiwan Accounting"
+                  parent="account.menu_finance"
+                  sequence="10"/>
+
+        <!-- Settings Submenu -->
+        <menuitem id="menu_tw_accounting_config"
+                  name="Configuration"
+                  parent="menu_tw_accounting_root"
+                  sequence="10"/>
+
+        <!-- Donation Units Menu -->
+        <menuitem id="menu_tw_donation_units"
+                  name="Donation Units"
+                  parent="menu_tw_accounting_config"
+                  action="action_tw_donation_units"
+                  sequence="10"/>
+
+        <!-- Reports Submenu -->
+        <menuitem id="menu_tw_accounting_reports"
+                  name="Reports"
+                  parent="menu_tw_accounting_root"
+                  sequence="20"/>
+
+        <!-- Carrier History Menu -->
+        <menuitem id="menu_tw_carrier_history"
+                  name="Carrier Usage History"
+                  parent="menu_tw_accounting_reports"
+                  action="action_tw_carrier_history"
+                  sequence="10"/>
+    </data>
+</odoo>

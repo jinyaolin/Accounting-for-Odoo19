@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Account Account Form View Inherit -->
+        <record id="view_account_form_inherit_tw" model="ir.ui.view">
+            <field name="name">account.account.form.inherit.tw</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='bank_cash']" position="after">
+                    <group string="Taiwan Account Settings">
+                        <field name="tw_account_code"/>
+                        <field name="tw_account_type"/>
+                        <field name="tw_tax_deductible"/>
+                        <field name="tw_account_group"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

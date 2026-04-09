@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tw_invoice_carrier_history_user,Taiwan Invoice Carrier History User,model_tw_invoice_carrier_history,base.group_user,1,0,0,0
+access_tw_invoice_carrier_history_manager,Taiwan Invoice Carrier History Manager,model_tw_invoice_carrier_hierarchy,account.group_account_manager,1,1,1,1
+access_tw_donation_unit_user,Taiwan Donation Unit User,model_tw_donation_unit,base.group_user,1,0,0,0
+access_tw_donation_unit_manager,Taiwan Donation Unit Manager,model_tw_donation_unit,account.group_account_manager,1,1,1,1
