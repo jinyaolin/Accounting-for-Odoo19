@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 加值稅申報報告向導 -->
+    <record id="view_tw_vat_declaration_report_form" model="ir.ui.view">
+        <field name="name">tw.vat.declaration.report.form</field>
+        <field name="model">tw.vat.declaration.report</field>
+        <field name="arch" type="xml">
+            <form string="加值稅申報">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="declaration_type"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_report" string="產生" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tw_vat_declaration_report" model="ir.actions.act_window">
+        <field name="name">加值稅申報報告</field>
+        <field name="res_model">tw.vat.declaration.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- 財務報表向導 -->
+    <record id="view_tw_financial_report_wizard_form" model="ir.ui.view">
+        <field name="name">tw.financial.report.wizard.form</field>
+        <field name="model">tw.financial.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="財務報表">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="report_type"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_report" string="產生報表" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tw_financial_report_wizard" model="ir.actions.act_window">
+        <field name="name">台灣財務報表</field>
+        <field name="res_model">tw.financial.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

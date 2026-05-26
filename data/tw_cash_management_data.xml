@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 現金收入記錄序列 -->
+    <record id="seq_tw_cash_receipt" model="ir.sequence">
+        <field name="name">現金收入記錄</field>
+        <field name="code">tw.cash.receipt</field>
+        <field name="prefix">CR</field>
+        <field name="padding">6</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- 現金支出記錄序列 -->
+    <record id="seq_tw_cash_payment" model="ir.sequence">
+        <field name="name">現金支出記錄</field>
+        <field name="code">tw.cash.payment</field>
+        <field name="prefix">CP</field>
+        <field name="padding">6</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- 現金日記帳序列 -->
+    <record id="seq_tw_cash_journal" model="ir.sequence">
+        <field name="name">現金日記帳</field>
+        <field name="code">tw.cash.journal</field>
+        <field name="prefix">CJ</field>
+        <field name="padding">6</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- 現金收入記錄列表視圖 -->
+    <record id="view_tw_cash_receipt_list" model="ir.ui.view">
+        <field name="name">現金收入列表</field>
+        <field name="model">tw.cash.receipt</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="receipt_type"/>
+                <field name="amount"/>
+                <field name="payment_method"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 現金收入記錄搜尋視圖 -->
+    <record id="view_tw_cash_receipt_search" model="ir.ui.view">
+        <field name="name">現金收入搜尋</field>
+        <field name="model">tw.cash.receipt</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 現金收入記錄表單視圖 -->
+    <record id="view_tw_cash_receipt_form" model="ir.ui.view">
+        <field name="name">現金收入表單</field>
+        <field name="model">tw.cash.receipt</field>
+        <field name="arch" type="xml">
+            <form string="現金收入記錄">
+                <header>
+                    <button name="action_confirm" string="確認" type="object" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_post" string="過帳" type="object" invisible="state != 'confirmed'" class="btn-primary"/>
+                    <button name="action_cancel" string="取消" type="object" invisible="state not in ['draft', 'confirmed']"/>
+                    <button name="action_draft" string="重置為草稿" type="object" invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,posted"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="date"/>
+                            <field name="partner_id"/>
+                            <field name="receipt_type"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="payment_method"/>
+                            <field name="account_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="付款資訊">
+                            <group>
+                                <group>
+                                    <field name="check_number" invisible="payment_method != 'check'"/>
+                                    <field name="bank_id" invisible="payment_method != 'check'"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="說明">
+                            <group>
+                                <field name="description"/>
+                                <field name="notes"/>
+                            </group>
+                        </page>
+                        <page string="會計資訊">
+                            <group>
+                                <field name="move_id" readonly="1"/>
+                                <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 現金支出記錄列表視圖 -->
+    <record id="view_tw_cash_payment_list" model="ir.ui.view">
+        <field name="name">現金支出列表</field>
+        <field name="model">tw.cash.payment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="payment_type"/>
+                <field name="amount"/>
+                <field name="payment_method"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 現金支出記錄搜尋視圖 -->
+    <record id="view_tw_cash_payment_search" model="ir.ui.view">
+        <field name="name">現金支出搜尋</field>
+        <field name="model">tw.cash.payment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 現金支出記錄表單視圖 -->
+    <record id="view_tw_cash_payment_form" model="ir.ui.view">
+        <field name="name">現金支出表單</field>
+        <field name="model">tw.cash.payment</field>
+        <field name="arch" type="xml">
+            <form string="現金支出記錄">
+                <header>
+                    <button name="action_submit" string="提交核准" type="object" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_approve" string="核准" type="object" invisible="state != 'submitted'" class="btn-primary"/>
+                    <button name="action_post" string="過帳" type="object" invisible="state != 'approved'" class="btn-primary"/>
+                    <button name="action_cancel" string="取消" type="object" invisible="state not in ['draft', 'submitted', 'approved']"/>
+                    <button name="action_draft" string="重置為草稿" type="object" invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,posted"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="date"/>
+                            <field name="partner_id"/>
+                            <field name="payment_type"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="payment_method"/>
+                            <field name="account_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="付款資訊">
+                            <group>
+                                <group>
+                                    <field name="check_number" invisible="payment_method != 'check'"/>
+                                    <field name="bank_id" invisible="payment_method != 'check'"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="說明">
+                            <group>
+                                <field name="description"/>
+                                <field name="notes"/>
+                            </group>
+                        </page>
+                        <page string="核准資訊">
+                            <group>
+                                <field name="approved_by" readonly="1"/>
+                                <field name="approval_date" readonly="1"/>
+                                <field name="move_id" readonly="1"/>
+                                <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 現金日記帳列表視圖 -->
+    <record id="view_tw_cash_journal_list" model="ir.ui.view">
+        <field name="name">現金日記帳列表</field>
+        <field name="model">tw.cash.journal</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date"/>
+                <field name="opening_balance"/>
+                <field name="total_receipts"/>
+                <field name="total_payments"/>
+                <field name="closing_balance"/>
+                <field name="bank_balance"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 現金日記帳搜尋視圖 -->
+    <record id="view_tw_cash_journal_search" model="ir.ui.view">
+        <field name="name">現金日記帳搜尋</field>
+        <field name="model">tw.cash.journal</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 現金日記帳表單視圖 -->
+    <record id="view_tw_cash_journal_form" model="ir.ui.view">
+        <field name="name">現金日記帳表單</field>
+        <field name="model">tw.cash.journal</field>
+        <field name="arch" type="xml">
+            <form string="現金日記帳">
+                <header>
+                    <button name="action_confirm" string="確認" type="object" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_draft" string="重置為草稿" type="object" invisible="state != 'confirmed'"/>
+                    <button name="generate_daily_report" string="產生日報表" type="object" class="btn-secondary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="date" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="opening_balance"/>
+                            <field name="bank_balance" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="摘要">
+                            <group>
+                                <group>
+                                    <field name="total_receipts" readonly="1"/>
+                                    <field name="total_payments" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="closing_balance" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="備註">
+                            <group>
+                                <field name="notes"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 現金日報表向導視圖 -->
+    <record id="view_tw_cash_journal_report_form" model="ir.ui.view">
+        <field name="name">現金日報表向導</field>
+        <field name="model">tw.cash.journal.report</field>
+        <field name="arch" type="xml">
+            <form string="現金日報表">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_report" string="產生報表" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- 現金收入記錄動作 -->
+    <record id="action_tw_cash_receipts" model="ir.actions.act_window">
+        <field name="name">現金收入記錄</field>
+        <field name="res_model">tw.cash.receipt</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                現金收入記錄
+            </p>
+            <p>
+                在此管理所有現金收入記錄，包含銷貨收入、服務收入、退款收入等。
+            </p>
+        </field>
+    </record>
+
+    <!-- 現金支出記錄動作 -->
+    <record id="action_tw_cash_payments" model="ir.actions.act_window">
+        <field name="name">現金支出記錄</field>
+        <field name="res_model">tw.cash.payment</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                現金支出記錄
+            </p>
+            <p>
+                在此管理所有現金支出記錄，包含採購付款、費用支出、薪資支出等。
+            </p>
+        </field>
+    </record>
+
+    <!-- 現金日記帳動作 -->
+    <record id="action_tw_cash_journals" model="ir.actions.act_window">
+        <field name="name">現金日記帳</field>
+        <field name="res_model">tw.cash.journal</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                現金日記帳
+            </p>
+            <p>
+                在此管理每日現金收支記錄，追蹤現金餘額變化。
+            </p>
+        </field>
+    </record>
+
+    <!-- 現金日報表動作 -->
+    <record id="action_tw_cash_journal_report" model="ir.actions.act_window">
+        <field name="name">現金日報表</field>
+        <field name="res_model">tw.cash.journal.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- 現金管理菜單項 -->
+    <menuitem id="menu_tw_cash_management"
+              name="現金管理"
+              parent="tw_accounting.menu_tw_accounting_root"
+              sequence="40"/>
+
+    <!-- 現金收入 -->
+    <menuitem id="menu_tw_cash_receipts"
+              name="現金收入"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_receipts"
+              sequence="10"/>
+
+    <!-- 現金支出 -->
+    <menuitem id="menu_tw_cash_payments"
+              name="現金支出"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_payments"
+              sequence="20"/>
+
+    <!-- 現金日記帳 -->
+    <menuitem id="menu_tw_cash_journals"
+              name="現金日記帳"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_journals"
+              sequence="30"/>
+
+    <!-- 現金日報表 -->
+    <menuitem id="menu_tw_cash_journal_report"
+              name="現金日報表"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_journal_report"
+              sequence="40"/>
+
+</odoo>

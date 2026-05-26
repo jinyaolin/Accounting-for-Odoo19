@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Taiwan Accounting Menu -->
-        <menuitem id="menu_tw_accounting_root"
-                  name="Taiwan Accounting"
-                  parent="account.menu_finance"
-                  sequence="10"/>
+    <!-- 會計菜單 -->
+    <menuitem id="menu_tw_accounting_root"
+              name="會計"
+              parent="account.menu_finance"
+              sequence="10"/>
 
-        <!-- Settings Submenu -->
-        <menuitem id="menu_tw_accounting_config"
-                  name="Configuration"
-                  parent="menu_tw_accounting_root"
-                  sequence="10"/>
+    <!-- 配置子菜單 -->
+    <menuitem id="menu_tw_accounting_config"
+              name="配置"
+              parent="menu_tw_accounting_root"
+              sequence="10"/>
 
-        <!-- Donation Units Menu -->
-        <menuitem id="menu_tw_donation_units"
-                  name="Donation Units"
-                  parent="menu_tw_accounting_config"
-                  action="action_tw_donation_units"
-                  sequence="10"/>
+    <!-- 報表子菜單 -->
+    <menuitem id="menu_tw_accounting_reports"
+              name="報告"
+              parent="menu_tw_accounting_root"
+              sequence="20"/>
 
-        <!-- Reports Submenu -->
-        <menuitem id="menu_tw_accounting_reports"
-                  name="Reports"
-                  parent="menu_tw_accounting_root"
-                  sequence="20"/>
+    <!-- 貿易會計 -->
+    <menuitem id="menu_tw_trade_accounting"
+              name="貿易會計"
+              parent="menu_tw_accounting_root"
+              sequence="30"
+              groups="account.group_account_user"/>
 
-        <!-- Carrier History Menu -->
-        <menuitem id="menu_tw_carrier_history"
-                  name="Carrier Usage History"
-                  parent="menu_tw_accounting_reports"
-                  action="action_tw_carrier_history"
-                  sequence="10"/>
-    </data>
+    <!-- 加值稅申報 -->
+    <menuitem id="menu_tw_vat_declaration"
+              name="加值稅申報"
+              parent="menu_tw_accounting_reports"
+              action="action_tw_vat_declaration_report"
+              sequence="10"/>
+
+    <!-- 財務報表 -->
+    <menuitem id="menu_tw_financial_reports"
+              name="財務報表"
+              parent="menu_tw_accounting_reports"
+              action="action_tw_financial_report_wizard"
+              sequence="20"/>
 </odoo>

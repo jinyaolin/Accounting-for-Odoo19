@@ -1,70 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Donation Unit Tree View -->
-        <record id="view_tw_donation_unit_tree" model="ir.ui.view">
-            <field name="name">tw.donation.unit.tree</field>
-            <field name="model">tw.donation.unit</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="code"/>
-                    <field name="name"/>
-                    <field name="donation_count"/>
-                    <field name="total_amount"/>
-                    <field name="active"/>
-                </tree>
-            </field>
-        </record>
+    <!-- Donation Unit Tree View -->
+    <record id="view_tw_donation_unit_tree" model="ir.ui.view">
+        <field name="name">tw.donation.unit.tree</field>
+        <field name="model">tw.donation.unit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="donation_count"/>
+                <field name="total_amount"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
 
-        <!-- Donation Unit Form View -->
-        <record id="view_tw_donation_unit_form" model="ir.ui.view">
-            <field name="name">tw.donation.unit.form</field>
-            <field name="model">tw.donation.unit</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
+    <!-- Donation Unit Form View -->
+    <record id="view_tw_donation_unit_form" model="ir.ui.view">
+        <field name="name">tw.donation.unit.form</field>
+        <field name="model">tw.donation.unit</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
                         <group>
-                            <group>
-                                <field name="code"/>
-                                <field name="active"/>
-                            </group>
-                            <group>
-                                <field name="name"/>
-                            </group>
+                            <field name="code"/>
+                            <field name="active"/>
                         </group>
-                        <group string="Statistics">
-                            <group>
-                                <field name="donation_count" readonly="True"/>
-                                <field name="total_amount" readonly="True"/>
-                            </group>
+                        <group>
+                            <field name="name"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                    </group>
+                    <group string="Statistics">
+                        <group>
+                            <field name="donation_count" readonly="True"/>
+                            <field name="total_amount" readonly="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <!-- Donation Unit Action -->
-        <record id="action_tw_donation_units" model="ir.actions.act_window">
-            <field name="name">Donation Units</field>
-            <field name="res_model">tw.donation.unit</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Register donation units for donation code carrier
-                </p>
-            </field>
-        </record>
+    <!-- Donation Unit Action -->
+    <record id="action_tw_donation_units" model="ir.actions.act_window">
+        <field name="name">Donation Units</field>
+        <field name="res_model">tw.donation.unit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register donation units for donation code carrier
+            </p>
+        </field>
+    </record>
 
-        <!-- Carrier History Action -->
-        <record id="action_tw_carrier_history" model="ir.actions.act_window">
-            <field name="name">Carrier Usage History</field>
-            <field name="res_model">tw.invoice.carrier.history</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    No carrier usage records yet
-                </p>
-            </field>
-        </record>
-    </data>
+    <!-- Carrier History Action -->
+    <record id="action_tw_carrier_history" model="ir.actions.act_window">
+        <field name="name">Carrier Usage History</field>
+        <field name="res_model">tw.invoice.carrier.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No carrier usage records yet
+            </p>
+        </field>
+    </record>
 </odoo>

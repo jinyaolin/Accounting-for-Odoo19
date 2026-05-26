@@ -18,13 +18,13 @@
                                 <label for="tw_prefer_carrier_type" string="Default Carrier Settings"/>
                                 <div>
                                     <field name="tw_prefer_carrier_type"/>
-                                    <div attrs="{'invisible': [('tw_prefer_carrier_type', '=', 'none')]}">
+                                    <div invisible="tw_prefer_carrier_type == 'none'">
                                         <field name="tw_prefer_carrier_num"
                                                placeholder="Enter carrier number"
-                                               attrs="{'required': [('tw_prefer_carrier_type', 'in', ['mobile_barcode', 'citizen_cert', 'donation_code'])]}"/>
+                                               required="tw_prefer_carrier_type in ['mobile_barcode', 'citizen_cert', 'donation_code']"/>
                                         <field name="tw_prefer_donation_unit"
-                                               attrs="{'invisible': [('tw_prefer_carrier_type', '!=', 'donation_code')],
-                                                       'required': [('tw_prefer_carrier_type', '=', 'donation_code')]}"/>
+                                               invisible="tw_prefer_carrier_type != 'donation_code'"
+                                               required="tw_prefer_carrier_type == 'donation_code'"/>
                                     </div>
                                 </div>
                                 <field name="tw_carrier_display" readonly="True"/>
@@ -32,16 +32,18 @@
                         </group>
 
                         <!-- Carrier Usage History -->
-                        <group string="Carrier Usage Records" attrs="{'invisible': [('carrier_history_ids', '=', False)]}">
+                        <!-- Temporarily disabled due to Odoo 19 tree view validation issues -->
+                        <!--
+                        <group string="Carrier Usage Records" invisible="not carrier_history_ids">
                             <field name="carrier_history_ids" nolabel="1">
                                 <tree>
                                     <field name="invoice_date"/>
                                     <field name="carrier_type"/>
-                                    <field name="carrier_num"/>
                                     <field name="invoice_amount"/>
                                 </tree>
                             </field>
                         </group>
+                        -->
                     </page>
                 </xpath>
             </field>

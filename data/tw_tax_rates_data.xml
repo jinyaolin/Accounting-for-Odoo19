@@ -10,7 +10,7 @@
             <field name="description">5%</field>
             <field name="tax_scope">vat</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="tw_tax_type">vat_5</field>
+            <!-- <field name="tw_tax_type">vat_5</field> -->
         </record>
 
         <!-- Zero Rate Tax -->

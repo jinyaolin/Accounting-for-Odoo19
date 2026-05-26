@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 會計科目列表視圖 -->
+    <record id="view_tw_account_list" model="ir.ui.view">
+        <field name="name">會計科目列表</field>
+        <field name="model">account.account</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="tw_account_code"/>
+                <field name="tw_account_type"/>
+                <field name="account_type"/>
+                <field name="tw_tax_deductible"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 會計科目搜尋視圖 -->
+    <record id="view_tw_account_search" model="ir.ui.view">
+        <field name="name">會計科目搜尋</field>
+        <field name="model">account.account</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="tw_account_code"/>
+                <field name="tw_account_type"/>
+                <filter string="資產類" name="filter_assets" domain="[('tw_account_type', '=', 'asset')]"/>
+                <filter string="負債類" name="filter_liabilities" domain="[('tw_account_type', '=', 'liability')]"/>
+                <filter string="權益類" name="filter_equity" domain="[('tw_account_type', '=', 'equity')]"/>
+                <filter string="收入類" name="filter_revenue" domain="[('tw_account_type', '=', 'revenue')]"/>
+                <filter string="費用類" name="filter_expense" domain="[('tw_account_type', '=', 'expense')]"/>
+                <filter string="可抵扣" name="filter_deductible" domain="[('tw_tax_deductible', '=', True)]"/>
+                <filter string="不可抵扣" name="filter_not_deductible" domain="[('tw_tax_deductible', '=', False)]"/>
+                <separator/>
+                <filter string="資產類" name="group_assets" domain="[('tw_account_type', '=', 'asset')]"/>
+                <filter string="負債類" name="group_liabilities" domain="[('tw_account_type', '=', 'liability')]"/>
+                <filter string="權益類" name="group_equity" domain="[('tw_account_type', '=', 'equity')]"/>
+                <filter string="收入類" name="group_revenue" domain="[('tw_account_type', '=', 'revenue')]"/>
+                <filter string="費用類" name="group_expense" domain="[('tw_account_type', '=', 'expense')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 會計科目表單視圖 -->
+    <record id="view_tw_account_form" model="ir.ui.view">
+        <field name="name">會計科目表單</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="台灣會計設定">
+                    <group>
+                        <group>
+                            <field name="tw_account_code"/>
+                            <field name="tw_account_type"/>
+                            <field name="tw_tax_deductible"/>
+                            <field name="tw_account_group"/>
+                        </group>
+                        <group>
+                            <field name="account_type"/>
+                            <field name="reconcile"/>
+                        </group>
+                    </group>
+                    <group string="說明">
+                        <div>
+                            <p><strong>台灣會計科目編碼說明：</strong></p>
+                            <ul>
+                                <li>1xxxxxx - 資產類</li>
+                                <li>2xxxxxx - 負債類</li>
+                                <li>3xxxxxx - 權益類</li>
+                                <li>4xxxxxx - 收入類</li>
+                                <li>5xxxxxx - 費用類</li>
+                                <li>6xxxxxx - 稅費類</li>
+                            </ul>
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 會計科目動作 -->
+    <record id="action_tw_accounts" model="ir.actions.act_window">
+        <field name="name">會計科目</field>
+        <field name="res_model">account.account</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('tw_account_code', '!=', False)]</field>
+        <field name="context">{'search_default_group_assets': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                會計科目管理
+            </p>
+            <p>
+                在此管理台灣標準會計科目，可查看、編輯、新增台灣會計科目。
+            </p>
+        </field>
+    </record>
+
+    <!-- 菜單項 -->
+    <menuitem id="menu_tw_accounts"
+              name="會計科目"
+              parent="menu_tw_accounting_config"
+              action="action_tw_accounts"
+              sequence="5"/>
+
+</odoo>

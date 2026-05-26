@@ -31,44 +31,43 @@ Phase 3 (Week 9-12): Advanced Features & Optimization
     'website': 'https://github.com/jinyaolin',
     'license': 'LGPL-3',
     'depends': [
-        'account',
-        'account_invoicing',
-        'base_vat',
-        'stock',
-        'purchase',
-        'sale',
+        'base',
+        'account',           # Core accounting module
+        'base_vat',         # VAT handling
+        'stock',            # Inventory (for trade features)
+        'purchase',         # Suppliers
+        'sale',             # Customers
     ],
     'data': [
         # Security
-        'security/tw_security.xml',
+        # 'security/tw_security.xml',
         'security/ir.model.access.csv',
 
         # Data
         'data/tw_chart_of_accounts_data.xml',
-        'data/tw_tax_rates_data.xml',
-        'data/tw_invoice_sequences_data.xml',
+        'data/tw_cash_management_data.xml',
 
         # Views
         'views/tw_account_views.xml',
+        'views/tw_account_management_views.xml',
         'views/tw_invoice_views.xml',
         'views/tw_partner_views.xml',
+        # 'views/tw_donation_unit_views.xml',  # Temporarily disabled
         'views/tw_menu.xml',
-
-        # Reports
-        'reports/tw_financial_reports.xml',
+        'views/tw_wizards_views.xml',
+        'views/tw_cash_management_views.xml',
     ],
     'assets': {
         'web.assets_backend': [
-            'tw_accounting/static/src/css/tw_accounting.css',
-            'tw_accounting/static/src/js/tw_invoice_widgets.js',
+            # 'tw_accounting/static/src/css/tw_accounting.css',
+            # 'tw_accounting/static/src/js/tw_invoice_widgets.js',
         ],
     },
-    'images': [
-        'static/description/icon.png',
-        'static/description/banner.png',
-    ],
+    # 'images': [
+    #     'static/description/icon.png',
+    #     'static/description/banner.png',
+    # ],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'post_init_hook': 'post_init_hook',
 }

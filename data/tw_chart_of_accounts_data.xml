@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- 台灣會計科目表 - 資產類 (Assets) -->
+
+        <!-- 流動資產 -->
+        <record id="tw_account_1110001" model="account.account">
+            <field name="code">1110001</field>
+            <field name="name">庫存現金</field>
+            <field name="account_type">asset_cash</field>
+            <field name="tw_account_code">1110001</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="tw_account_1110002" model="account.account">
+            <field name="code">1110002</field>
+            <field name="name">銀行存款</field>
+            <field name="account_type">asset_cash</field>
+            <field name="tw_account_code">1110002</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            <field name="reconcile">True</field>
+            
+        </record>
+
+        <record id="tw_account_1120000" model="account.account">
+            <field name="code">1120000</field>
+            <field name="name">應收票據</field>
+            <field name="account_type">asset_current</field>
+            <field name="tw_account_code">1120000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            <field name="reconcile">True</field>
+            
+        </record>
+
+        <record id="tw_account_1130000" model="account.account">
+            <field name="code">1130000</field>
+            <field name="name">應收帳款</field>
+            <field name="account_type">asset_receivable</field>
+            <field name="tw_account_code">1130000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            <field name="reconcile">True</field>
+            
+        </record>
+
+        <record id="tw_account_1140000" model="account.account">
+            <field name="code">1140000</field>
+            <field name="name">其他應收款</field>
+            <field name="account_type">asset_current</field>
+            <field name="tw_account_code">1140000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1150001" model="account.account">
+            <field name="code">1150001</field>
+            <field name="name">商品存貨</field>
+            <field name="account_type">asset_current</field>
+            <field name="tw_account_code">1150001</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1150002" model="account.account">
+            <field name="code">1150002</field>
+            <field name="name">原物料</field>
+            <field name="account_type">asset_current</field>
+            <field name="tw_account_code">1150002</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1160000" model="account.account">
+            <field name="code">1160000</field>
+            <field name="name">預付費用</field>
+            <field name="account_type">asset_current</field>
+            <field name="tw_account_code">1160000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <!-- 固定資產 -->
+        <record id="tw_account_1210000" model="account.account">
+            <field name="code">1210000</field>
+            <field name="name">土地</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="tw_account_code">1210000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1220000" model="account.account">
+            <field name="code">1220000</field>
+            <field name="name">建築物</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="tw_account_code">1220000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1230000" model="account.account">
+            <field name="code">1230000</field>
+            <field name="name">機器設備</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="tw_account_code">1230000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1240000" model="account.account">
+            <field name="code">1240000</field>
+            <field name="name">運輸設備</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="tw_account_code">1240000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1250000" model="account.account">
+            <field name="code">1250000</field>
+            <field name="name">辦公設備</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="tw_account_code">1250000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_1290000" model="account.account">
+            <field name="code">1290000</field>
+            <field name="name">累計折舊</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="tw_account_code">1290000</field>
+            <field name="tw_account_type">asset</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <!-- 負債類 (Liabilities) -->
+        <record id="tw_account_2110000" model="account.account">
+            <field name="code">2110000</field>
+            <field name="name">應付票據</field>
+            <field name="account_type">liability_payable</field>
+            <field name="tw_account_code">2110000</field>
+            <field name="tw_account_type">liability</field>
+            <field name="tw_tax_deductible">True</field>
+            <field name="reconcile">True</field>
+            
+        </record>
+
+        <record id="tw_account_2120000" model="account.account">
+            <field name="code">2120000</field>
+            <field name="name">應付帳款</field>
+            <field name="account_type">liability_payable</field>
+            <field name="tw_account_code">2120000</field>
+            <field name="tw_account_type">liability</field>
+            <field name="tw_tax_deductible">True</field>
+            <field name="reconcile">True</field>
+            
+        </record>
+
+        <record id="tw_account_2130000" model="account.account">
+            <field name="code">2130000</field>
+            <field name="name">應付所得稅</field>
+            <field name="account_type">liability_current</field>
+            <field name="tw_account_code">2130000</field>
+            <field name="tw_account_type">liability</field>
+            <field name="tw_tax_deductible">False</field>
+            
+        </record>
+
+        <record id="tw_account_2140000" model="account.account">
+            <field name="code">2140000</field>
+            <field name="name">應付營業稅</field>
+            <field name="account_type">liability_current</field>
+            <field name="tw_account_code">2140000</field>
+            <field name="tw_account_type">liability</field>
+            <field name="tw_tax_deductible">False</field>
+            
+        </record>
+
+        <record id="tw_account_2150000" model="account.account">
+            <field name="code">2150000</field>
+            <field name="name">其他應付款</field>
+            <field name="account_type">liability_current</field>
+            <field name="tw_account_code">2150000</field>
+            <field name="tw_account_type">liability</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_2160000" model="account.account">
+            <field name="code">2160000</field>
+            <field name="name">預收款項</field>
+            <field name="account_type">liability_current</field>
+            <field name="tw_account_code">2160000</field>
+            <field name="tw_account_type">liability</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <!-- 權益類 (Equity) -->
+        <record id="tw_account_3100000" model="account.account">
+            <field name="code">3100000</field>
+            <field name="name">股本</field>
+            <field name="account_type">equity</field>
+            <field name="tw_account_code">3100000</field>
+            <field name="tw_account_type">equity</field>
+            <field name="tw_tax_deductible">False</field>
+            
+        </record>
+
+        <record id="tw_account_3200000" model="account.account">
+            <field name="code">3200000</field>
+            <field name="name">保留盈餘</field>
+            <field name="account_type">equity</field>
+            <field name="tw_account_code">3200000</field>
+            <field name="tw_account_type">equity</field>
+            <field name="tw_tax_deductible">False</field>
+            
+        </record>
+
+        <record id="tw_account_3300000" model="account.account">
+            <field name="code">3300000</field>
+            <field name="name">本期損益</field>
+            <field name="account_type">equity</field>
+            <field name="tw_account_code">3300000</field>
+            <field name="tw_account_type">equity</field>
+            <field name="tw_tax_deductible">False</field>
+            
+        </record>
+
+        <!-- 收入類 (Revenue) -->
+        <record id="tw_account_4100000" model="account.account">
+            <field name="code">4100000</field>
+            <field name="name">銷貨收入</field>
+            <field name="account_type">income</field>
+            <field name="tw_account_code">4100000</field>
+            <field name="tw_account_type">revenue</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_4200000" model="account.account">
+            <field name="code">4200000</field>
+            <field name="name">服務收入</field>
+            <field name="account_type">income</field>
+            <field name="tw_account_code">4200000</field>
+            <field name="tw_account_type">revenue</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_4300000" model="account.account">
+            <field name="code">4300000</field>
+            <field name="name">其他收入</field>
+            <field name="account_type">income_other</field>
+            <field name="tw_account_code">4300000</field>
+            <field name="tw_account_type">revenue</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <!-- 費用類 (Expenses) -->
+        <record id="tw_account_5100000" model="account.account">
+            <field name="code">5100000</field>
+            <field name="name">銷貨成本</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5100000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5200000" model="account.account">
+            <field name="code">5200000</field>
+            <field name="name">薪資費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5200000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5300000" model="account.account">
+            <field name="code">5300000</field>
+            <field name="name">租金費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5300000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5400000" model="account.account">
+            <field name="code">5400000</field>
+            <field name="name">水電費</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5400000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5500000" model="account.account">
+            <field name="code">5500000</field>
+            <field name="name">辦公費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5500000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5600000" model="account.account">
+            <field name="code">5600000</field>
+            <field name="name">差旅費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5600000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5700000" model="account.account">
+            <field name="code">5700000</field>
+            <field name="name">廣告費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5700000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5800000" model="account.account">
+            <field name="code">5800000</field>
+            <field name="name">折舊費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5800000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <record id="tw_account_5900000" model="account.account">
+            <field name="code">5900000</field>
+            <field name="name">利息費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">5900000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">True</field>
+            
+        </record>
+
+        <!-- 稅費科目 -->
+        <record id="tw_account_6100000" model="account.account">
+            <field name="code">6100000</field>
+            <field name="name">營業稅</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">6100000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">False</field>
+            
+        </record>
+
+        <record id="tw_account_6200000" model="account.account">
+            <field name="code">6200000</field>
+            <field name="name">所得稅費用</field>
+            <field name="account_type">expense</field>
+            <field name="tw_account_code">6200000</field>
+            <field name="tw_account_type">expense</field>
+            <field name="tw_tax_deductible">False</field>
+            
+        </record>
+
+    </data>
+</odoo>

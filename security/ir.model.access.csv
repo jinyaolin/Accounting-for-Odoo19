@@ -1,5 +1,27 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_tw_invoice_carrier_history_user,Taiwan Invoice Carrier History User,model_tw_invoice_carrier_history,base.group_user,1,0,0,0
-access_tw_invoice_carrier_history_manager,Taiwan Invoice Carrier History Manager,model_tw_invoice_carrier_hierarchy,account.group_account_manager,1,1,1,1
+access_tw_invoice_carrier_history_manager,Taiwan Invoice Carrier History Manager,model_tw_invoice_carrier_history,account.group_account_manager,1,1,1,1
 access_tw_donation_unit_user,Taiwan Donation Unit User,model_tw_donation_unit,base.group_user,1,0,0,0
 access_tw_donation_unit_manager,Taiwan Donation Unit Manager,model_tw_donation_unit,account.group_account_manager,1,1,1,1
+access_tw_vat_media_declaration_user,Taiwan VAT Media Declaration User,model_tw_vat_media_declaration,account.group_account_user,1,0,0,0
+access_tw_vat_media_declaration_manager,Taiwan VAT Media Declaration Manager,model_tw_vat_media_declaration,account.group_account_manager,1,1,1,1
+access_tw_vat_declaration_report_user,Taiwan VAT Declaration Report User,model_tw_vat_declaration_report,account.group_account_user,1,0,0,0
+access_tw_vat_declaration_report_manager,Taiwan VAT Declaration Report Manager,model_tw_vat_declaration_report,account.group_account_manager,1,1,1,1
+access_tw_financial_report_user,Taiwan Financial Report User,model_tw_financial_report,account.group_account_user,1,0,0,0
+access_tw_financial_report_manager,Taiwan Financial Report Manager,model_tw_financial_report,account.group_account_manager,1,1,1,1
+access_tw_financial_report_wizard_user,Taiwan Financial Report Wizard User,model_tw_financial_report_wizard,account.group_account_user,1,0,0,0
+access_tw_financial_report_wizard_manager,Taiwan Financial Report Wizard Manager,model_tw_financial_report_wizard,account.group_account_manager,1,1,1,1
+access_tw_trade_accounting_user,Taiwan Trade Accounting User,model_tw_trade_accounting,account.group_account_user,1,0,0,0
+access_tw_trade_accounting_manager,Taiwan Trade Accounting Manager,model_tw_trade_accounting,account.group_account_manager,1,1,1,1
+access_tw_invoice_sequence_user,Taiwan Invoice Sequence User,model_tw_invoice_sequence,account.group_account_user,1,0,0,0
+access_tw_invoice_sequence_manager,Taiwan Invoice Sequence Manager,model_tw_invoice_sequence,account.group_account_manager,1,1,1,1
+access_tw_invoice_period_user,Taiwan Invoice Period User,model_tw_invoice_period,account.group_account_user,1,0,0,0
+access_tw_invoice_period_manager,Taiwan Invoice Period Manager,model_tw_invoice_period,account.group_account_manager,1,1,1,1
+access_tw_cash_receipt_user,Taiwan Cash Receipt User,model_tw_cash_receipt,account.group_account_user,1,1,1,0
+access_tw_cash_receipt_manager,Taiwan Cash Receipt Manager,model_tw_cash_receipt,account.group_account_manager,1,1,1,1
+access_tw_cash_payment_user,Taiwan Cash Payment User,model_tw_cash_payment,account.group_account_user,1,0,0,0
+access_tw_cash_payment_manager,Taiwan Cash Payment Manager,model_tw_cash_payment,account.group_account_manager,1,1,1,1
+access_tw_cash_journal_user,Taiwan Cash Journal User,model_tw_cash_journal,account.group_account_user,1,0,0,0
+access_tw_cash_journal_manager,Taiwan Cash Journal Manager,model_tw_cash_journal,account.group_account_manager,1,1,1,1
+access_tw_cash_journal_report_user,Taiwan Cash Journal Report User,model_tw_cash_journal_report,account.group_account_user,1,0,0,0
+access_tw_cash_journal_report_manager,Taiwan Cash Journal Report Manager,model_tw_cash_journal_report,account.group_account_manager,1,1,1,1
