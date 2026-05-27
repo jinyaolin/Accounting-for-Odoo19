@@ -5,13 +5,13 @@
         <field name="name">tw.donation.unit.tree</field>
         <field name="model">tw.donation.unit</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="code"/>
                 <field name="name"/>
                 <field name="donation_count"/>
                 <field name="total_amount"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 

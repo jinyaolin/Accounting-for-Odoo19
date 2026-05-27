@@ -42,7 +42,7 @@ class TwFinancialReport(models.Model):
 
         # Get all accounts
         accounts = self.env['account.account'].search([
-            ('company_id', '=', self.company_id.id),
+            ('company_ids', 'child_of', self.company_id.id),
         ])
 
         # Organize by Taiwan account classification
@@ -76,7 +76,7 @@ class TwFinancialReport(models.Model):
         accounts_list = []
 
         for account in tw_accounts:
-            balance = self._get_account_balance(account, self.date_from, self.date_to)
+            balance = self._get_single_account_balance(account, self.date_from, self.date_to)
             total += balance
 
             if abs(balance) > 0.01:  # Only show significant amounts
@@ -91,14 +91,14 @@ class TwFinancialReport(models.Model):
             'total': total,
         }
 
-    def _get_account_balance(self, account, date_from, date_to):
+    def _get_single_account_balance(self, account, date_from, date_to):
         """Get account balance for period"""
         # Calculate balance from move lines
         move_lines = self.env['account.move.line'].search([
             ('account_id', '=', account.id),
             ('date', '>=', date_from),
             ('date', '<=', date_to),
-            ('parent_id.state', '=', 'posted'),
+            ('parent_state', '=', 'posted'),
         ])
 
         balance = sum(line.balance for line in move_lines)
@@ -152,12 +152,12 @@ class TwFinancialReport(models.Model):
 
         # Get revenue and expense accounts
         revenue_accounts = self.env['account.account'].search([
-            ('company_id', '=', self.company_id.id),
+            ('company_ids', 'child_of', self.company_id.id),
             ('tw_account_type', 'in', ['revenue']),
         ])
 
         expense_accounts = self.env['account.account'].search([
-            ('company_id', '=', self.company_id.id),
+            ('company_ids', 'child_of', self.company_id.id),
             ('tw_account_type', 'in', ['expense']),
         ])
 
@@ -169,7 +169,7 @@ class TwFinancialReport(models.Model):
         expense_items = []
 
         for account in revenue_accounts:
-            balance = self._get_account_balance(account, self.date_from, self.date_to)
+            balance = self._get_single_account_balance(account, self.date_from, self.date_to)
             if abs(balance) > 0.01:
                 total_revenue += balance
                 revenue_items.append({
@@ -179,7 +179,7 @@ class TwFinancialReport(models.Model):
                 })
 
         for account in expense_accounts:
-            balance = self._get_account_balance(account, self.date_from, self.date_to)
+            balance = self._get_single_account_balance(account, self.date_from, self.date_to)
             if abs(balance) > 0.01:
                 total_expense += abs(balance)
                 expense_items.append({

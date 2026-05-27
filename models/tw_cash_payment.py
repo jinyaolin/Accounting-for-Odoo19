@@ -26,7 +26,8 @@ class TwCashPayment(models.Model):
     ], string='支出類型', required=True, default='other')
 
     amount = fields.Float(string='支出金額', required=True, digits='Account')
-    currency_id = fields.Many2one('res.currency', string='幣別', related='company_id.currency_id', readonly=True)
+    currency_id = fields.Many2one('res.currency', string='幣別', required=True,
+        default=lambda self: self.env.company.currency_id)
 
     # Description
     description = fields.Text(string='說明')
@@ -63,11 +64,12 @@ class TwCashPayment(models.Model):
     company_id = fields.Many2one('res.company', string='公司', required=True, default=lambda self: self.env.company)
 
     @api.model
-    def create(self, vals):
+    def create(self, vals_list):
         """Generate sequence number for new cash payment"""
-        if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('tw.cash.payment') or 'New'
-        return super(TwCashPayment, self).create(vals)
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code('tw.cash.payment') or 'New'
+        return super(TwCashPayment, self).create(vals_list)
 
     def action_submit(self):
         """Submit for approval"""
@@ -91,7 +93,7 @@ class TwCashPayment(models.Model):
         # Create accounting move
         move_vals = {
             'date': self.date,
-            'journal_id': self.env['account.journal'].search([('type', '=', 'cash'), ('company_id', '=', self.company_id.id)], limit=1).id,
+            'journal_id': self.env['account.journal'].search([('type', '=', 'cash')], limit=1).id,
             'line_ids': [
                 (0, 0, {
                     'account_id': self.account_id.id,
@@ -100,7 +102,7 @@ class TwCashPayment(models.Model):
                     'name': self.description or self.name,
                 }),
                 (0, 0, {
-                    'account_id': self.env['account.account'].search([('tw_account_code', '=', '1110001'), ('company_id', '=', self.company_id.id)], limit=1).id or self.account_id.id,
+                    'account_id': self.env['account.account'].search([('tw_account_code', '=', '1110001'), ('company_ids', 'child_of', self.company_id.id)], limit=1).id or self.account_id.id,
                     'debit': self.amount if self.account_id.tw_account_type in ['expense', 'liability'] else 0,
                     'credit': self.amount if self.account_id.tw_account_type == 'asset' else 0,
                     'name': self.description or self.name,

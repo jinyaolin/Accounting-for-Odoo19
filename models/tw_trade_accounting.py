@@ -21,7 +21,7 @@ class TwTradeAccounting(models.Model):
         """Revalue foreign currency accounts"""
         # Get all foreign currency move lines
         move_lines = self.env['account.move.line'].search([
-            ('parent_id.state', '=', 'posted'),
+            ('parent_state', '=', 'posted'),
             ('amount_currency', '!=', 0.0),
             ('currency_id', '!=', self.env.company.currency_id),
         ])

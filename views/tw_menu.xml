@@ -25,6 +25,13 @@
               sequence="30"
               groups="account.group_account_user"/>
 
+    <!-- 會計科目 (moved from tw_account_management_views.xml) -->
+    <menuitem id="menu_tw_accounts"
+              name="會計科目"
+              parent="menu_tw_accounting_config"
+              action="action_tw_accounts"
+              sequence="5"/>
+
     <!-- 加值稅申報 -->
     <menuitem id="menu_tw_vat_declaration"
               name="加值稅申報"
@@ -38,4 +45,34 @@
               parent="menu_tw_accounting_reports"
               action="action_tw_financial_report_wizard"
               sequence="20"/>
+
+    <!-- 現金管理 (moved from tw_cash_management_views.xml) -->
+    <menuitem id="menu_tw_cash_management"
+              name="現金管理"
+              parent="menu_tw_accounting_root"
+              sequence="40"/>
+
+    <menuitem id="menu_tw_cash_receipts"
+              name="現金收入"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_receipts"
+              sequence="10"/>
+
+    <menuitem id="menu_tw_cash_payments"
+              name="現金支出"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_payments"
+              sequence="20"/>
+
+    <menuitem id="menu_tw_cash_journals"
+              name="現金日記帳"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_journals"
+              sequence="30"/>
+
+    <menuitem id="menu_tw_cash_journal_report"
+              name="現金日報表"
+              parent="menu_tw_cash_management"
+              action="action_tw_cash_journal_report"
+              sequence="40"/>
 </odoo>

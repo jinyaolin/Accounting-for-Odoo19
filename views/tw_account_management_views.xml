@@ -98,11 +98,4 @@
         </field>
     </record>
 
-    <!-- 菜單項 -->
-    <menuitem id="menu_tw_accounts"
-              name="會計科目"
-              parent="menu_tw_accounting_config"
-              action="action_tw_accounts"
-              sequence="5"/>
-
 </odoo>

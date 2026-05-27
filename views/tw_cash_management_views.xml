@@ -55,7 +55,7 @@
                         </group>
                         <group>
                             <field name="amount"/>
-                            <field name="currency_id" readonly="1"/>
+                            <field name="currency_id"/>
                             <field name="payment_method"/>
                             <field name="account_id"/>
                         </group>
@@ -142,7 +142,7 @@
                         </group>
                         <group>
                             <field name="amount"/>
-                            <field name="currency_id" readonly="1"/>
+                            <field name="currency_id"/>
                             <field name="payment_method"/>
                             <field name="account_id"/>
                         </group>
@@ -329,39 +329,5 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
-
-    <!-- 現金管理菜單項 -->
-    <menuitem id="menu_tw_cash_management"
-              name="現金管理"
-              parent="tw_accounting.menu_tw_accounting_root"
-              sequence="40"/>
-
-    <!-- 現金收入 -->
-    <menuitem id="menu_tw_cash_receipts"
-              name="現金收入"
-              parent="menu_tw_cash_management"
-              action="action_tw_cash_receipts"
-              sequence="10"/>
-
-    <!-- 現金支出 -->
-    <menuitem id="menu_tw_cash_payments"
-              name="現金支出"
-              parent="menu_tw_cash_management"
-              action="action_tw_cash_payments"
-              sequence="20"/>
-
-    <!-- 現金日記帳 -->
-    <menuitem id="menu_tw_cash_journals"
-              name="現金日記帳"
-              parent="menu_tw_cash_management"
-              action="action_tw_cash_journals"
-              sequence="30"/>
-
-    <!-- 現金日報表 -->
-    <menuitem id="menu_tw_cash_journal_report"
-              name="現金日報表"
-              parent="menu_tw_cash_management"
-              action="action_tw_cash_journal_report"
-              sequence="40"/>
 
 </odoo>

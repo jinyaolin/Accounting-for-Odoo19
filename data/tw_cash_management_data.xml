@@ -26,4 +26,11 @@
         <field name="padding">6</field>
         <field name="company_id" eval="False"/>
     </record>
+
+    <!-- 現金日記帳 -->
+    <record id="tw_cash_journal" model="account.journal">
+        <field name="name">現金日記帳</field>
+        <field name="code">TWC</field>
+        <field name="type">cash</field>
+    </record>
 </odoo>

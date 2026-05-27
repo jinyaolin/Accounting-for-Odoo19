@@ -47,15 +47,15 @@ Phase 3 (Week 9-12): Advanced Features & Optimization
         'data/tw_chart_of_accounts_data.xml',
         'data/tw_cash_management_data.xml',
 
-        # Views
+        # Views (order matters: actions before menus that reference them)
         'views/tw_account_views.xml',
         'views/tw_account_management_views.xml',
         'views/tw_invoice_views.xml',
         'views/tw_partner_views.xml',
         # 'views/tw_donation_unit_views.xml',  # Temporarily disabled
-        'views/tw_menu.xml',
         'views/tw_wizards_views.xml',
         'views/tw_cash_management_views.xml',
+        'views/tw_menu.xml',  # Must be last - references actions from above
     ],
     'assets': {
         'web.assets_backend': [

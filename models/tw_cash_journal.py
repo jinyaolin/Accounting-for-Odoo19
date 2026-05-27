@@ -66,7 +66,7 @@ class TwCashJournal(models.Model):
         for journal in self:
             # Get bank account balances
             bank_accounts = self.env['account.account'].search([
-                ('company_id', '=', journal.company_id.id),
+                ('company_ids', 'child_of', journal.company_id.id),
                 ('tw_account_type', '=', 'asset'),
                 ('account_type', 'like', 'asset_%')
             ])
@@ -77,7 +77,7 @@ class TwCashJournal(models.Model):
                 move_lines = self.env['account.move.line'].search([
                     ('account_id', '=', account.id),
                     ('date', '<=', journal.date),
-                    ('parent_id.state', '=', 'posted'),
+                    ('parent_state', '=', 'posted'),
                 ])
                 balance = sum(line.balance for line in move_lines)
                 total_bank_balance += balance
