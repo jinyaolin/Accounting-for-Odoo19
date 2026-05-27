@@ -89,6 +89,7 @@ class TestInvoice(common.TransactionCase):
             'partner_id': self.partner_b2b.id,
             'invoice_date': date.today(),
             'journal_id': self.sales_journal.id,
+            'tw_buyer_vat': self.partner_b2b.tw_vat,
         })
         self.assertEqual(invoice.tw_invoice_type, 'tw_triple')
 

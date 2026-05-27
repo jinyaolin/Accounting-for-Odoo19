@@ -222,7 +222,7 @@ class TestCashJournal(common.TransactionCase):
     def test_01_create_journal(self):
         """Test creating a cash journal"""
         journal = self.cash_journal_model.create({
-            'date': date.today(),
+            'date': date(2020, 1, 15),
             'opening_balance': 10000.0,
         })
         self.assertEqual(journal.state, 'draft')

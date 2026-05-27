@@ -100,12 +100,17 @@ class AccountMove(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
-        """Auto-fill carrier info when partner changes"""
+        """Auto-fill carrier and buyer info when partner changes"""
         for move in self:
             if not move.partner_id:
                 continue
 
             partner = move.partner_id
+
+            # Auto-fill buyer VAT for B2B
+            if partner.tw_vat:
+                move.tw_buyer_vat = partner.tw_vat
+                move.tw_buyer_name = partner.name
 
             # Handle carrier auto-fill based on partner preference
             if partner.tw_prefer_carrier_type == 'none':

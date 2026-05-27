@@ -23,11 +23,13 @@ class TestTax(common.TransactionCase):
         tax_group = self.env['account.tax.group'].search([], limit=1)
         if not tax_group:
             self.skipTest('No tax group found')
+        company = self.env.company
         tax = self.tax_model.create({
             'name': 'Test Taiwan VAT 5%',
             'amount': 5.0,
             'amount_type': 'percent',
             'tax_group_id': tax_group.id,
+            'country_id': company.country_id.id or self.env.ref('base.tw').id,
             'tw_tax_type': 'vat_5',
         })
         self.assertEqual(tax.tw_tax_type, 'vat_5')
