@@ -50,12 +50,14 @@ class TwInvoiceSequence(models.Model):
     # Usage statistics
     used_count = fields.Integer(string='Used Count', default=0)
 
-    _sql_constraints = [
-        ('prefix_period_unique', 'unique(prefix, period_id)',
-         'Track prefix must be unique per period'),
-        ('number_range_positive', 'CHECK(end_number >= start_number)',
-         'End number must be greater than start number'),
-    ]
+    _prefix_period_unique = models.Constraint(
+        'unique(prefix, period_id)',
+        'Track prefix must be unique per period',
+    )
+    _number_range_positive = models.Constraint(
+        'CHECK(end_number >= start_number)',
+        'End number must be greater than start number',
+    )
 
     @api.depends('current_number', 'end_number')
     def _compute_is_exhausted(self):

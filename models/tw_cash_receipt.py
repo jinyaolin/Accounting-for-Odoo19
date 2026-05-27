@@ -52,7 +52,7 @@ class TwCashReceipt(models.Model):
         ('confirmed', '已確認'),
         ('posted', '已過帳'),
         ('cancelled', '已取消'),
-    ], string='狀態', default='draft', tracking=True)
+    ], string='狀態', default='draft')
 
     company_id = fields.Many2one('res.company', string='公司', required=True, default=lambda self: self.env.company)
 

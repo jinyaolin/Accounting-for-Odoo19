@@ -72,5 +72,5 @@ Phase 3 (Week 9-12): Advanced Features & Optimization
     'installable': True,
     'application': True,
     'auto_install': False,
-    'post_init_hook': 'post_init_hook',
+    'post_init_hook': '_post_init_hook',
 }

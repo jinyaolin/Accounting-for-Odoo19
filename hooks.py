@@ -5,21 +5,29 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def post_init_hook(cr, registry):
+def _post_init_hook(env):
     """Auto-configure all settings needed for Taiwan accounting on fresh install"""
-    env = registry.env(cr)
+    # 0. Prevent generic_coa chart template from loading and wiping our data.
+    #    When the 'account' module is installed, it defers loading of generic_coa
+    #    into registry._auto_install_template (see account/models/ir_module.py).
+    #    That runs in _register_hook() AFTER all modules load, deleting all
+    #    existing account.account / account.tax / account.journal records.
+    #    Since tw_accounting provides its own Taiwan chart, we cancel it.
+    if hasattr(env.registry, '_auto_install_template'):
+        logger.info('Canceling deferred generic_coa auto-install to preserve Taiwan chart of accounts')
+        del env.registry._auto_install_template
 
-    # 1. Set default receivable/payable accounts for new partners
+    # 1. Ensure essential journals exist (before configuring payment accounts)
+    _ensure_journals(env)
+
+    # 2. Set default receivable/payable accounts for new partners
     _set_default_partner_accounts(env)
 
-    # 2. Configure payment method lines on bank/cash journals
+    # 3. Configure payment method lines on bank/cash journals
     _configure_journal_payment_accounts(env)
 
-    # 3. Set product category default income/expense accounts
+    # 4. Set product category default income/expense accounts
     _set_product_category_accounts(env)
-
-    # 4. Ensure bank journal exists
-    _ensure_bank_journal(env)
 
 
 def _set_default_partner_accounts(env):
@@ -114,16 +122,33 @@ def _set_product_category_accounts(env):
                 income_account.code, expense_account.code)
 
 
-def _ensure_bank_journal(env):
-    """Ensure a bank journal exists with proper payment method configuration"""
-    bank_journal = env['account.journal'].search([('type', '=', 'bank')], limit=1)
+def _ensure_journals(env):
+    """Ensure essential journals exist (bank, sales, purchase)"""
+    Journal = env['account.journal']
 
-    if not bank_journal:
-        bank_journal = env['account.journal'].create({
+    # Bank journal
+    if not Journal.search([('type', '=', 'bank')], limit=1):
+        Journal.create({
             'name': '銀行存款',
             'code': 'BANK',
             'type': 'bank',
         })
-        logger.info('Created bank journal: %s', bank_journal.name)
-    else:
-        logger.info('Bank journal already exists: %s', bank_journal.name)
+        logger.info('Created bank journal: 銀行存款')
+
+    # Sales journal (needed for invoices)
+    if not Journal.search([('type', '=', 'sale')], limit=1):
+        Journal.create({
+            'name': '銷貨',
+            'code': 'SALE',
+            'type': 'sale',
+        })
+        logger.info('Created sales journal: 銷貨')
+
+    # Purchase journal (needed for vendor bills)
+    if not Journal.search([('type', '=', 'purchase')], limit=1):
+        Journal.create({
+            'name': '進貨',
+            'code': 'PURC',
+            'type': 'purchase',
+        })
+        logger.info('Created purchase journal: 進貨')

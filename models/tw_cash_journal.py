@@ -36,7 +36,7 @@ class TwCashJournal(models.Model):
     state = fields.Selection([
         ('draft', '草稿'),
         ('confirmed', '已確認'),
-    ], string='狀態', default='draft', tracking=True)
+    ], string='狀態', default='draft')
 
     company_id = fields.Many2one('res.company', string='公司', required=True, default=lambda self: self.env.company)
 

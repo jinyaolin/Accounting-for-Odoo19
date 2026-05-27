@@ -47,7 +47,7 @@ class TwVATMediaDeclaration(models.Model):
         ('calculated', '已計算'),
         ('file_generated', '檔案已產生'),
         ('submitted', '已申報'),
-    ], string='狀態', default='draft', tracking=True)
+    ], string='狀態', default='draft')
 
     @api.depends('total_output_tax', 'total_input_tax')
     def _compute_net_tax(self):

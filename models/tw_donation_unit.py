@@ -33,6 +33,7 @@ class TwDonationUnit(models.Model):
             ])
             unit.total_amount = sum(histories.mapped('invoice_amount'))
 
-    _sql_constraints = [
-        ('code_unique', 'unique(code)', 'Donation unit code must be unique'),
-    ]
+    _code_unique = models.Constraint(
+        'unique(code)',
+        'Donation unit code must be unique',
+    )
