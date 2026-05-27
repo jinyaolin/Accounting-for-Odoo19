@@ -9,9 +9,9 @@ class AccountMove(models.Model):
 
     # Taiwan Invoice Type (System auto-detection)
     tw_invoice_type = fields.Selection([
-        ('tw_triple', 'Triple Copy (B2B)'),
-        ('tw_double', 'Double Copy (B2C)'),
-    ], string='Invoice Type', compute='_compute_tw_invoice_type', store=True)
+        ('tw_triple', '三聯式發票 (B2B)'),
+        ('tw_double', '二聯式發票 (B2C)'),
+    ], string='發票類型', compute='_compute_tw_invoice_type', store=True)
 
     # Invoice Track and Number
     tw_invoice_track = fields.Char(
@@ -29,26 +29,26 @@ class AccountMove(models.Model):
 
     # B2B Specific Fields
     tw_buyer_vat = fields.Char(
-        string='Buyer VAT Number',
+        string='買方統一編號',
         size=8,
-        help='Buyer VAT number (required for triple copy)'
+        help='買方統一編號（三聯式必填）'
     )
     tw_buyer_name = fields.Char(
-        string='Buyer Name',
-        help='Buyer company name'
+        string='買方名稱',
+        help='買方公司名稱'
     )
 
     # B2C Carrier Fields
     tw_carrier_type = fields.Selection([
-        ('none', 'No Carrier'),
-        ('mobile_barcode', 'Mobile Barcode'),
-        ('citizen_cert', 'Citizen Certificate'),
-        ('donation_code', 'Donation Code'),
-    ], string='Carrier Type')
+        ('none', '不使用'),
+        ('mobile_barcode', '手機條碼'),
+        ('citizen_cert', '自然人憑證'),
+        ('donation_code', '捐贈碼'),
+    ], string='載具類型')
 
     tw_carrier_num = fields.Char(
-        string='Carrier Number',
-        help='Carrier number for VAT deduction'
+        string='載具號碼',
+        help='載具號碼'
     )
 
     # Donation Code Specific Fields
@@ -86,7 +86,7 @@ class AccountMove(models.Model):
     # Auto-detect invoice type
     @api.depends('partner_id', 'partner_id.tw_vat', 'move_type')
     def _compute_tw_invoice_type(self):
-        """Auto-detect invoice type based on partner VAT"""
+        """Auto-detect invoice type based on partner VAT, and auto-fill buyer info"""
         for move in self:
             if move.move_type not in ['out_invoice', 'out_refund']:
                 continue
@@ -94,6 +94,11 @@ class AccountMove(models.Model):
             if move.partner_id and move.partner_id.tw_vat:
                 # Has VAT → B2B Triple Copy
                 move.tw_invoice_type = 'tw_triple'
+                # Auto-fill buyer info if empty (handles programmatic creation from SO)
+                if not move.tw_buyer_vat:
+                    move.tw_buyer_vat = move.partner_id.tw_vat
+                if not move.tw_buyer_name:
+                    move.tw_buyer_name = move.partner_id.name
             else:
                 # No VAT → B2C Double Copy
                 move.tw_invoice_type = 'tw_double'
@@ -216,22 +221,28 @@ class AccountMove(models.Model):
     def _validate_carrier_fields(self, move):
         """Validate carrier fields"""
         if move.tw_carrier_type == 'mobile_barcode':
-            if not move.tw_carrier_num or len(move.tw_carrier_num) != 20:
-                raise ValidationError(_('Mobile barcode format error, should be 20 digits'))
+            if not move.tw_carrier_num or len(move.tw_carrier_num) != 8:
+                raise ValidationError(_('手機條碼格式錯誤，應為8碼（例如 /NET0MV2）'))
             if not move.tw_carrier_num.startswith('/'):
-                raise ValidationError(_('Mobile barcode must start with /'))
+                raise ValidationError(_('手機條碼必須以 / 開頭'))
+            # Code 39 允許字元：0-9, A-Z, ., -, +
+            import re
+            if not re.match(r'^/[0-9A-Z.\-+]{7}$', move.tw_carrier_num):
+                raise ValidationError(_('手機條碼格式錯誤，僅允許數字、大寫英文及符號(+-.)'))
 
         elif move.tw_carrier_type == 'citizen_cert':
             if not move.tw_carrier_num or len(move.tw_carrier_num) != 16:
-                raise ValidationError(_('Citizen certificate format error, should be 16 characters'))
-            if not move.tw_carrier_num[:2].isalpha():
-                raise ValidationError(_('Citizen certificate first 2 characters must be letters'))
+                raise ValidationError(_('自然人憑證格式錯誤，應為16碼'))
+            if not move.tw_carrier_num[:2].isalpha() or not move.tw_carrier_num[:2].isupper():
+                raise ValidationError(_('自然人憑證前2碼必須為大寫英文'))
+            if not move.tw_carrier_num[2:].isdigit():
+                raise ValidationError(_('自然人憑證後14碼必須為數字'))
 
         elif move.tw_carrier_type == 'donation_code':
-            if not move.tw_carrier_num or len(move.tw_carrier_num) != 7:
-                raise ValidationError(_('Donation code format error, should be 7 digits'))
+            if not move.tw_carrier_num or len(move.tw_carrier_num) < 3 or len(move.tw_carrier_num) > 7:
+                raise ValidationError(_('捐贈碼格式錯誤，應為3~7碼數字'))
             if not move.tw_carrier_num.isdigit():
-                raise ValidationError(_('Donation code must be numeric'))
+                raise ValidationError(_('捐贈碼必須為數字'))
 
     def _validate_tw_vat(self, vat):
         """Taiwan VAT number validation logic"""

@@ -13,3 +13,4 @@ from . import tw_financial_reports
 from . import tw_cash_receipt
 from . import tw_cash_payment
 from . import tw_cash_journal
+from . import tw_exchange_rate

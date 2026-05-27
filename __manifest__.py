@@ -46,6 +46,7 @@ Phase 3 (Week 9-12): Advanced Features & Optimization
         # Data
         'data/tw_chart_of_accounts_data.xml',
         'data/tw_cash_management_data.xml',
+        'data/tw_tax_rates_data.xml',
 
         # Views (order matters: actions before menus that reference them)
         'views/tw_account_views.xml',
@@ -55,6 +56,7 @@ Phase 3 (Week 9-12): Advanced Features & Optimization
         # 'views/tw_donation_unit_views.xml',  # Temporarily disabled
         'views/tw_wizards_views.xml',
         'views/tw_cash_management_views.xml',
+        'views/tw_exchange_rate_views.xml',
         'views/tw_menu.xml',  # Must be last - references actions from above
     ],
     'assets': {
@@ -70,4 +72,5 @@ Phase 3 (Week 9-12): Advanced Features & Optimization
     'installable': True,
     'application': True,
     'auto_install': False,
+    'post_init_hook': 'post_init_hook',
 }

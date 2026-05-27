@@ -8,25 +8,22 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <page string="Taiwan Invoice Settings">
+                    <page string="台灣發票設定">
                         <group>
                             <group>
-                                <field name="tw_vat" placeholder="Enter 8-digit VAT number"/>
+                                <field name="tw_vat" placeholder="請輸入8碼統一編號"/>
                                 <field name="tw_invoice_type" readonly="True"/>
                             </group>
                             <group>
-                                <label for="tw_prefer_carrier_type" string="Default Carrier Settings"/>
-                                <div>
-                                    <field name="tw_prefer_carrier_type"/>
-                                    <div invisible="tw_prefer_carrier_type == 'none'">
-                                        <field name="tw_prefer_carrier_num"
-                                               placeholder="Enter carrier number"
-                                               required="tw_prefer_carrier_type in ['mobile_barcode', 'citizen_cert', 'donation_code']"/>
-                                        <field name="tw_prefer_donation_unit"
-                                               invisible="tw_prefer_carrier_type != 'donation_code'"
-                                               required="tw_prefer_carrier_type == 'donation_code'"/>
-                                    </div>
-                                </div>
+                                <field name="tw_prefer_carrier_type"/>
+                                <field name="tw_prefer_carrier_num"
+                                       invisible="tw_prefer_carrier_type == 'none'"
+                                       placeholder="手機條碼8碼(如/NET0MV2) 或自然人憑證16碼"
+                                       required="tw_prefer_carrier_type in ['mobile_barcode', 'citizen_cert', 'donation_code']"
+                                       style="width: 100%%"/>
+                                <field name="tw_prefer_donation_unit"
+                                       invisible="tw_prefer_carrier_type != 'donation_code'"
+                                       required="tw_prefer_carrier_type == 'donation_code'"/>
                                 <field name="tw_carrier_display" readonly="True"/>
                             </group>
                         </group>

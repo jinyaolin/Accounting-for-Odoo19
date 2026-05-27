@@ -1,38 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
-        <!-- Taiwan VAT Tax Rate 5% -->
+    <data noupdate="0">
+        <!-- === 銷項稅 (Sale Taxes / Output Tax) === -->
+
+        <!-- 5% 應稅（適用商品） -->
         <record id="tw_vat_taxable" model="account.tax">
-            <field name="name">Taiwan VAT 5%</field>
+            <field name="name">台灣營業稅 5%（銷項）</field>
             <field name="type_tax_use">sale</field>
             <field name="amount">5</field>
             <field name="amount_type">percent</field>
             <field name="description">5%</field>
-            <field name="tax_scope">vat</field>
+            <field name="tax_scope">consu</field>
+            <field name="country_id" ref="base.tw"/>
             <field name="company_id" ref="base.main_company"/>
-            <!-- <field name="tw_tax_type">vat_5</field> -->
+            <field name="tw_tax_type">vat_5</field>
         </record>
 
-        <!-- Zero Rate Tax -->
+        <!-- 5% 應稅（適用服務） -->
+        <record id="tw_vat_taxable_service" model="account.tax">
+            <field name="name">台灣營業稅 5%（銷項-服務）</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount">5</field>
+            <field name="amount_type">percent</field>
+            <field name="description">5%</field>
+            <field name="tax_scope">service</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tw_tax_type">vat_5</field>
+        </record>
+
+        <!-- 零稅率 -->
         <record id="tw_vat_zero" model="account.tax">
-            <field name="name">Taiwan VAT Zero Rate</field>
+            <field name="name">台灣營業稅 零稅率（銷項）</field>
             <field name="type_tax_use">sale</field>
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="description">Zero</field>
-            <field name="tax_scope">vat</field>
+            <field name="tax_scope">consu</field>
+            <field name="country_id" ref="base.tw"/>
             <field name="company_id" ref="base.main_company"/>
             <field name="tw_tax_type">vat_zero</field>
         </record>
 
-        <!-- Exempt Tax -->
+        <!-- 免稅 -->
         <record id="tw_vat_exempt" model="account.tax">
-            <field name="name">Taiwan VAT Exempt</field>
+            <field name="name">台灣營業稅 免稅（銷項）</field>
             <field name="type_tax_use">sale</field>
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="description">Exempt</field>
-            <field name="tax_scope">vat</field>
+            <field name="tax_scope">consu</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tw_tax_type">vat_exempt</field>
+        </record>
+
+        <!-- === 進項稅 (Purchase Taxes / Input Tax) === -->
+
+        <!-- 5% 進項稅（商品） -->
+        <record id="tw_vat_taxable_purchase" model="account.tax">
+            <field name="name">台灣營業稅 5%（進項）</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount">5</field>
+            <field name="amount_type">percent</field>
+            <field name="description">5%</field>
+            <field name="tax_scope">consu</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tw_tax_type">vat_5</field>
+        </record>
+
+        <!-- 5% 進項稅（服務） -->
+        <record id="tw_vat_taxable_purchase_service" model="account.tax">
+            <field name="name">台灣營業稅 5%（進項-服務）</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount">5</field>
+            <field name="amount_type">percent</field>
+            <field name="description">5%</field>
+            <field name="tax_scope">service</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tw_tax_type">vat_5</field>
+        </record>
+
+        <!-- 零稅率 進項 -->
+        <record id="tw_vat_zero_purchase" model="account.tax">
+            <field name="name">台灣營業稅 零稅率（進項）</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount">0</field>
+            <field name="amount_type">percent</field>
+            <field name="description">Zero</field>
+            <field name="tax_scope">consu</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tw_tax_type">vat_zero</field>
+        </record>
+
+        <!-- 免稅 進項 -->
+        <record id="tw_vat_exempt_purchase" model="account.tax">
+            <field name="name">台灣營業稅 免稅（進項）</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount">0</field>
+            <field name="amount_type">percent</field>
+            <field name="description">Exempt</field>
+            <field name="tax_scope">consu</field>
+            <field name="country_id" ref="base.tw"/>
             <field name="company_id" ref="base.main_company"/>
             <field name="tw_tax_type">vat_exempt</field>
         </record>

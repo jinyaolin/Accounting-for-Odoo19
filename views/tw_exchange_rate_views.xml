@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add update rate button to currency list view header -->
+        <record id="view_currency_list_inherit_tw" model="ir.ui.view">
+            <field name="name">res.currency.list.inherit.tw</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_tree"/>
+            <field name="arch" type="xml">
+                <list position="inside">
+                    <header>
+                        <button name="action_update_tw_rates" string="更新匯率（台灣銀行）"
+                                type="object" class="btn-primary"
+                                confirm="確定要從台灣銀行更新當日匯率嗎？"/>
+                    </header>
+                </list>
+            </field>
+        </record>
+
+        <!-- Add update rate button to currency form view -->
+        <record id="view_currency_form_inherit_tw" model="ir.ui.view">
+            <field name="name">res.currency.form.inherit.tw</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form"/>
+            <field name="arch" type="xml">
+                <sheet position="before">
+                    <header>
+                        <button name="action_update_tw_rates" string="更新匯率（台灣銀行）"
+                                type="object" class="btn-primary"
+                                confirm="確定要從台灣銀行更新當日匯率嗎？"/>
+                    </header>
+                </sheet>
+            </field>
+        </record>
+    </data>
+</odoo>

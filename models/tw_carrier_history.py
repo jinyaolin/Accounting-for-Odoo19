@@ -5,22 +5,22 @@ from odoo import models, fields, api
 
 class TwInvoiceCarrierHistory(models.Model):
     _name = 'tw.invoice.carrier.history'
-    _description = 'Taiwan Invoice Carrier Usage History'
+    _description = '發票載具使用記錄'
     _order = 'invoice_date desc'
 
-    invoice_id = fields.Many2one('account.move', string='Invoice', required=True, ondelete='cascade')
-    partner_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='cascade')
+    invoice_id = fields.Many2one('account.move', string='發票', required=True, ondelete='cascade')
+    partner_id = fields.Many2one('res.partner', string='客戶', required=True, ondelete='cascade')
 
     carrier_type = fields.Selection([
-        ('mobile_barcode', 'Mobile Barcode'),
-        ('citizen_cert', 'Citizen Certificate'),
-        ('donation_code', 'Donation Code'),
-    ], string='Carrier Type', required=True)
+        ('mobile_barcode', '手機條碼'),
+        ('citizen_cert', '自然人憑證'),
+        ('donation_code', '捐贈碼'),
+    ], string='載具類型', required=True)
 
-    carrier_num = fields.Char(string='Carrier Number')
-    invoice_date = fields.Date(string='Invoice Date', required=True, default=fields.Date.context_today)
-    invoice_amount = fields.Float(string='Invoice Amount', required=True)
-    donation_unit = fields.Char(string='Donation Unit Code')
+    carrier_num = fields.Char(string='載具號碼')
+    invoice_date = fields.Date(string='發票日期', required=True, default=fields.Date.context_today)
+    invoice_amount = fields.Float(string='發票金額', required=True)
+    donation_unit = fields.Char(string='捐贈單位代碼')
 
     # Statistics
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)

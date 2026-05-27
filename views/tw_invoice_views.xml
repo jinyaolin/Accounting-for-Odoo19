@@ -1,81 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Invoice Form View Inherit -->
+        <!-- Invoice Form View Inherit - Taiwan Invoice Fields & Account Visibility -->
         <record id="view_move_form_inherit_tw" model="ir.ui.view">
             <field name="name">account.move.form.inherit.tw</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
-                <!-- Add Taiwan Invoice Info after partner selection -->
-                <xpath expr="//field[@name='partner_id']" position="after">
-                    <group string="Taiwan Uniform Invoice Information">
-                        <group>
-                            <field name="tw_invoice_type" widget="radio" readonly="state != 'draft'"/>
-                            <field name="tw_invoice_track" readonly="True"/>
-                            <field name="tw_invoice_number" readonly="True"/>
-                        </group>
-                    </group>
+                <!-- Add Taiwan Invoice fields inside header_left_group, after partner shipping -->
+                <xpath expr="//group[@id='header_left_group']/field[@name='partner_shipping_id']" position="after">
+                    <field name="tw_invoice_type" invisible="move_type not in ('out_invoice', 'out_refund')" readonly="state != 'draft'"/>
+                    <field name="tw_buyer_vat"
+                           invisible="tw_invoice_type != 'tw_triple'"
+                           required="tw_invoice_type == 'tw_triple'"
+                           placeholder="請輸入8碼統一編號"
+                           readonly="state != 'draft'"/>
+                    <field name="tw_buyer_name"
+                           invisible="tw_invoice_type != 'tw_triple'"
+                           readonly="state != 'draft'"/>
+                    <field name="tw_carrier_type"
+                           invisible="tw_invoice_type != 'tw_double'"/>
+                    <field name="tw_carrier_num"
+                           invisible="tw_invoice_type != 'tw_double' or tw_carrier_type == 'none'"
+                           placeholder="手機條碼8碼(如/NET0MV2) 或自然人憑證16碼"
+                           required="tw_invoice_type == 'tw_double' and tw_carrier_type in ['mobile_barcode', 'citizen_cert', 'donation_code']"
+                           readonly="state != 'draft'"/>
+                    <field name="tw_donation_unit"
+                           invisible="tw_carrier_type != 'donation_code'"
+                           required="tw_carrier_type == 'donation_code'"
+                           placeholder="請輸入3~7碼捐贈單位代碼"
+                           readonly="state != 'draft'"/>
                 </xpath>
 
-                <!-- B2B Triple Copy Specific Fields -->
-                <xpath expr="//field[@name='tw_invoice_type']" position="after">
-                    <group invisible="tw_invoice_type != 'tw_triple'">
-                        <field name="tw_buyer_vat" required="True"
-                               placeholder="Enter 8-digit VAT number"
-                               readonly="state != 'draft'"/>
-                        <field name="tw_buyer_name" readonly="state != 'draft'"/>
-                    </group>
+                <!-- Make account_id column always visible (remove groups restriction) in invoice lines -->
+                <xpath expr="//list[@name='journal_items']/field[@name='account_id']" position="attributes">
+                    <attribute name="groups"/>
+                    <attribute name="string">會計科目</attribute>
                 </xpath>
-
-                <!-- B2C Double Copy Specific Fields -->
-                <xpath expr="//field[@name='tw_invoice_type']" position="after">
-                    <group invisible="tw_invoice_type != 'tw_double'">
-                        <label for="tw_carrier_type" string="Carrier Information"/>
-                        <div>
-                            <field name="tw_carrier_type"/>
-                            <div invisible="tw_carrier_type == 'none'">
-                                <field name="tw_carrier_num"
-                                       placeholder="Enter carrier number"
-                                       required="tw_carrier_type in ['mobile_barcode', 'citizen_cert', 'donation_code']"
-                                       readonly="state != 'draft'"/>
-                            </div>
-                        </div>
-
-                        <!-- Donation Code Special Handling -->
-                        <div invisible="tw_carrier_type != 'donation_code'">
-                            <field name="tw_donation_unit" required="True"
-                                   placeholder="Enter 7-digit donation unit code"
-                                   options="{'no_create': True}"
-                                   readonly="state != 'draft'"/>
-                            <field name="tw_donation_unit_name" readonly="True"/>
-                        </div>
-                    </group>
-                </xpath>
-
-                <!-- Carrier Display Information -->
-                <xpath expr="//field[@name='invoice_line_ids']" position="before">
-                    <group invisible="tw_carrier_display == 'No Carrier'">
-                        <field name="tw_carrier_display" readonly="True"/>
-                    </group>
-                </xpath>
-
-                <!-- Carrier History Tab -->
-                <!-- Temporarily disabled due to Odoo 19 tree view validation issues -->
-                <!--
-                <xpath expr="//notebook" position="inside">
-                    <page string="Carrier Records" invisible="tw_invoice_type != 'tw_double'">
-                        <field name="tw_carrier_history_ids" readonly="True">
-                            <tree>
-                                <field name="invoice_date"/>
-                                <field name="carrier_type"/>
-                                <field name="carrier_num"/>
-                                <field name="invoice_amount"/>
-                            </tree>
-                        </field>
-                    </page>
-                </xpath>
-                -->
             </field>
         </record>
     </data>
